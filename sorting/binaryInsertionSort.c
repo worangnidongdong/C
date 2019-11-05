@@ -22,7 +22,21 @@ int binarySearch(int arr[], int key, int low, int high) {
         return binarySearch(arr, key, low, mid - 1);
     else
         return binarySearch(arr, key, mid + 1, high);
+}
 
+/*binary search not use recursion*/
+int binarySearchNotRecursion(int arr[], int key, int low, int high) {
+    while(low < high){
+        int mid = (low + high) / 2;
+        if(key == arr[mid]){
+            return mid + 1;
+        }else if(key < arr[mid]){
+            high = mid - 1;
+        }else{
+            low = mid + 1;
+        }
+    }
+    return (key > arr[low]) ? (low + 1): low;
 }
 /*This is where the sorting of the array takes place
  arr[] --- Array to be sorted
@@ -34,7 +48,7 @@ void insertionSort(int arr[], int size) {
         j = i - 1;
         key = arr[i];
         /* Use binrary search to find exact key's index */
-        index = binarySearch(arr, key, 0, j);
+        index = binarySearchNotRecursion(arr, key, 0, j);
         /* Move all elements greater than key from [index...j]
          * to one position */
         while(j >= index) {
